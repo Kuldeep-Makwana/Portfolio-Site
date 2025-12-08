@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Quests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+
+    <!-- Extra CSS for Gallery -->
+    <style>
+        .nb-gallery { margin-top: 20px; }
+        .nb-main {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nb-main img, .nb-main video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .nb-thumbs {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+        .nb-thumb {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            display: inline-block;
+        }
+        .nb-thumb.active {
+            border-color: #00aaff;
+        }
+        .nb-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.366);
+            padding: 12px 15px;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            pointer-events: none;
+        }
+        .nb-main iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Background Video and Overlay -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Global Mini Nav -->
+    <div class="mini-nav">
+        <a href="./index.html">
+            <button class="btn-primary mini-nav-btn" id="nav-back" title="Go Back">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </a>
+    </div>
+
+    <!-- Hidden Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/background-music.wav" type="audio/wav">
+    </audio>
+
+    <!-- Quest Container -->
+    <div class="panel quest-container">
+
+        <!-- Quest List Navigation (Left) -->
+        <nav class="quest-list-nav">
+            <h3>Quests</h3>
+            <a href="#" class="nav-tab active" data-target="quest1">
+                <i class="fas fa-scroll"></i> NearBy BRTS
+            </a>
+            <a href="#" class="nav-tab" data-target="quest2">
+                <i class="fas fa-scroll"></i> Admin Panel
+            </a>
+            <a href="#" class="nav-tab" data-target="quest3">
+                <i class="fas fa-scroll"></i> E-Commerce Platform
+            </a>
+            <a href="#" class="nav-tab" data-target="quest4">
+                <i class="fas fa-scroll"></i> College Website
+            </a>
+        </nav>
+
+        <!-- Quest Content (Right) -->
+        <section class="quest-content">
+
+            <!-- Quest 1 -->
+            <div id="quest1" class="content-panel active">
+                <h2>Project: NearBy BRTS</h2>
+
+                <!-- 🔥 Thumbnail Gallery START -->
+                <div class="nb-gallery">
+                    <div class="nb-main">
+                        <img class="nb-main-img" src="/quest images/NearBy BRTS/nb home.png">
+                        <video class="nb-main-video" controls style="display:none;"></video>
+                    </div>
+
+                    <div class="nb-thumbs">
+                        <div class="nb-thumb active" data-type="image" data-src="/quest images/NearBy BRTS/nb home.png">
+                            <img src="/quest images/NearBy BRTS/nb home.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/NearBy BRTS/route.png">
+                            <img src="/quest images/NearBy BRTS/route.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/NearBy BRTS/search.png">
+                            <img src="/quest images/NearBy BRTS/search.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/NearBy BRTS/mall.png">
+                            <img src="/quest images/NearBy BRTS/mall.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/NearBy BRTS/contact.png">
+                            <img src="/quest images/NearBy BRTS/contact.png">
+                        </div>
+                        
+                        <div class="nb-thumb" data-type="gdrive"
+                            data-src="https://drive.google.com/file/d/1LwgdYU_IxQirrOpF7EYAdGibs0bcPycW/preview">
+                            <img src="/quest images/E - Commerce/Deal hut.png">
+                            <span class="video-badge"><i class="fa-solid fa-play"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 🔥 Thumbnail Gallery END -->
+
+                <div class="quest-body">
+                    <p>Developed a dynamic web application that allows users to search for nearby BRTS bus routes based on station names.</p>
+                    <p>Key Features:
+                        Real-time station search,
+                        Dynamic route and bus filtering,
+                        Responsive interface,
+                        Clean PHP & MySQL backend
+                    </p>
+
+                    <div class="quest-rewards">
+                        <span class="reward-badge">HTML</span>
+                        <span class="reward-badge">CSS</span>
+                        <span class="reward-badge">JavaScript</span>
+                        <span class="reward-badge">Bootstrap</span>
+                        <span class="reward-badge">PHP</span>
+                        <span class="reward-badge">MySQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quest 2: Admin Panel -->
+            <div id="quest2" class="content-panel">
+                <h2>Project: Admin Panel</h2>
+                
+                <div class="nb-gallery">
+                    <div class="nb-main">
+                        <img class="nb-main-img" src="/quest images/Admin Panel/admin panel.png">
+                        <video class="nb-main-video" controls style="display:none;"></video>
+                    </div>
+
+                    <div class="nb-thumbs">
+                        <div class="nb-thumb active" data-type="image" data-src="/quest images/Admin Panel/admin panel.png">
+                            <img src="/quest images/Admin Panel/admin panel.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/Admin Panel/routes.png">
+                            <img src="/quest images/Admin Panel/routes.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/Admin Panel/enquiery.png">
+                            <img src="/quest images/Admin Panel/enquiery.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/Admin Panel/feedback.png">
+                            <img src="/quest images/Admin Panel/feedback.png">
+                        </div>
+
+                       
+                    </div>
+                </div>
+
+                <div class="quest-body">
+                    <p>Built an intuitive admin panel for managing the entire BRTS system data, including stations, routes, and buses. 
+                        The panel allows administrators to easily add, update, and delete records, ensuring accurate and up-to-date information for users in real time.
+                    </p>
+                    <p>
+                        Key Features:
+                        CRUD operations for stations, routes, and buses; 
+                        Secure login and access control, 
+                        Data validation and error handling, 
+                        Responsive dashboard with easy navigation.
+                    </p>
+                    <div class="quest-rewards">
+                        <span class="reward-badge">HTMl</span>
+                        <span class="reward-badge">CSS</span>
+                        <span class="reward-badge">JavaScript</span>
+                        <span class="reward-badge">Bootstrap</span>
+                        <span class="reward-badge">Php</span>
+                        <span class="reward-badge">MySql</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quest 3: E-Commerce Platform -->
+            <div id="quest3" class="content-panel">
+                <h2>Project: E-Commerce Platform</h2>
+
+                <div class="nb-gallery">
+                    <div class="nb-main">
+                        <img class="nb-main-img" src="/quest images/E - Commerce/Deal hut.png">
+                        <video class="nb-main-video" controls style="display:none;"></video>
+                    </div>
+
+                    <div class="nb-thumbs">
+                        <div class="nb-thumb active" data-type="image" data-src="/quest images/E - Commerce/Deal hut.png">
+                            <img src="/quest images/E - Commerce/Deal hut.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/E - Commerce/products.png">
+                            <img src="/quest images/E - Commerce/products.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/E - Commerce/suggestion.png">
+                            <img src="/quest images/E - Commerce/suggestion.png">
+                        </div>
+
+                       <div class="nb-thumb" data-type="gdrive"
+                            data-src="https://drive.google.com/file/d/12Pxc0ZNugvcSXIHlSshhccpPYQ5Xra1e/preview">
+                            <img src="/quest images/E - Commerce/Deal hut.png">
+                            <span class="video-badge"><i class="fa-solid fa-play"></i></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="quest-body">
+                    <p>A full-featured e-commerce platform with product catalog, shopping cart, payment processing, and order management. Built with scalability and performance in mind.</p>
+                    <p>
+                        Key Features: 
+                        User authentication and session management,
+                        Add-to-cart and checkout functionality,
+                        Product search and category filtering,
+                        Admin panel for product and order management,
+                        Responsive and interactive UI.
+                    </p>
+                    <div class="quest-rewards">
+                        <span class="reward-badge">HTMl</span>
+                        <span class="reward-badge">CSS</span>
+                        <span class="reward-badge">JavaScript</span>
+                        <span class="reward-badge">Laravel</span>
+                        <span class="reward-badge">MySql</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quest 4: College Website -->
+            <div id="quest4" class="content-panel">
+                <h2>Project: College Website</h2>
+                
+                <!-- 🔥 Thumbnail Gallery START -->
+                 <!-- Slider -->
+                <div class="nb-gallery">
+                    <div class="nb-main">
+                        <img class="nb-main-img" src="/quest images/College Web/SS home.png">
+                        <video class="nb-main-video" controls style="display:none;"></video>
+                    </div>
+
+                    <div class="nb-thumbs">
+                        <div class="nb-thumb active" data-type="image" data-src="/quest images/College Web/SS home.png">
+                            <img src="/quest images/College Web/SS home.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/College Web/SS about.png">
+                            <img src="/quest images/College Web/SS about.png">
+                        </div>
+
+                        <div class="nb-thumb" data-type="image" data-src="/quest images/College Web/SS depart.png">
+                            <img src="/quest images/College Web/SS depart.png">
+                        </div>
+                        <div class="nb-thumb" data-type="gdrive"
+                            data-src="https://drive.google.com/file/d/1x4l20FlBqYAOB88WXLnZ2eFDoOkbLs6G/preview">
+                            <img src="/quest images/College Web/SS home.png">
+                            <span class="video-badge"><i class="fa-solid fa-play"></i></span>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- 🔥 Thumbnail Gallery END -->
+
+                <div class="quest-body">
+                    <p>A simple and responsive College Website created during a hackathon. It includes pages for gallery, videos, departments, events, about, and contact. Each section has its own HTML and CSS file for clean structure and easy management.</p>
+                    <p>
+                       Key Features:
+                        Gallery viewing,
+                        About college information,
+                        Department-wise detail pages,
+                        Video showcase section,
+                        Events listing page,
+                        Contact form and details.
+                    </p>
+
+                    <p>Visit Website --> </p><a href="https://kuldeep-makwana.github.io/SSEC-Hackthon/html/" style="font-size: 20px; color: yellow;">SSEC-Hackthon Site</a> </p>
+                    <div class="quest-rewards">
+                        <span class="reward-badge">HTMl</span>
+                        <span class="reward-badge">CSS</span>
+                        <span class="reward-badge">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+    <!-- Gallery JS -->
+    <script>
+        document.querySelectorAll('.nb-gallery').forEach(gallery => {
+
+            const mainImg = gallery.querySelector('.nb-main-img');
+            const mainVideo = gallery.querySelector('.nb-main-video');
+
+            // Create IFRAME container for Google Drive videos
+            let mainIframe = document.createElement("iframe");
+            mainIframe.style.display = "none";
+            gallery.querySelector(".nb-main").appendChild(mainIframe);
+
+            const thumbs = gallery.querySelectorAll('.nb-thumb');
+
+            thumbs.forEach(t => {
+                t.addEventListener('click', () => {
+
+                    thumbs.forEach(x => x.classList.remove('active'));
+                    t.classList.add('active');
+
+                    const type = t.dataset.type;
+                    const src = t.dataset.src;
+
+                    // RESET everything
+                    mainImg.style.display = "none";
+                    mainVideo.style.display = "none";
+                    mainIframe.style.display = "none";
+                    mainVideo.pause();
+
+                    // IMAGES
+                    if (type === "image") {
+                        mainImg.style.display = "block";
+                        mainImg.src = src;
+                    }
+
+                    // LOCAL MP4 VIDEOS
+                    else if (type === "video") {
+                        mainVideo.style.display = "block";
+                        mainVideo.innerHTML = "";
+
+                        const source = document.createElement("source");
+                        source.src = src;
+                        source.type = "video/mp4";
+                        mainVideo.appendChild(source);
+
+                        mainVideo.load();
+                    }
+
+                    // GOOGLE DRIVE VIDEOS
+                    else if (type === "gdrive") {
+                        mainIframe.style.display = "block";
+                        mainIframe.src = src;
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

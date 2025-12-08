@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Background Video and Overlay -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Hidden Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/background-music.wav" type="audio/mpeg">
+    </audio>
+
+    <!-- Header HUD (Top-Left) -->
+    <header class="hud-container top-left">
+        <a href="profile.html" class="profile-pic-link">
+            <img src="assets/pfp.jpeg" alt="Profile Picture" class="profile-pic">
+        </a>
+        <div class="name"><h1>KUldeep</h1>
+        <p class="level-display">Level 20</p></div>
+        
+    </header>
+
+    <!-- Music Toggle HUD (Top-Right) -->
+    <div class="hud-container top-right">
+        <button id="music-toggle" class="music-btn" title="Toggle Music">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav">
+        <a href="quests.html" class="nav-icon" title="Quests">
+            <i class="fas fa-scroll"></i>
+        </a>
+        <a href="adventures.html" class="nav-icon" title="Adventures">
+            <i class="fas fa-map"></i>
+        </a>
+        <a href="achievements.html" class="nav-icon" title="Achievements">
+            <i class="fas fa-trophy"></i>
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="home-main">
+        <div class="home-content">
+            <h2>Welcome, Adventurer</h2>
+            <p>Embark on a journey through my portfolio and discover the quests I've conquered.</p>
+            <a href="role.html" class="btn-primary">[►] Start Adventure</a>
+        </div>
+    </main>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

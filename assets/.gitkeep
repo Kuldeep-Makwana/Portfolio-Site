@@ -1,0 +1,6 @@
+# This file ensures the assets directory is tracked by git
+# Add your media files here:
+# - background-video.mp4
+# - background-music.mp3
+# - images/ (for project photos and badges)
+# - icons/ (for custom icons)

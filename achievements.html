@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Achievements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Background Video and Overlay -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Global Mini Nav -->
+    <div class="mini-nav">
+    <a href="./index.html">
+        <button class="btn-primary mini-nav-btn" id="nav-back" title="Go Back">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </a>
+    </div>
+
+    <!-- Hidden Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/background-music.wav" type="audio/wav">
+    </audio>
+
+    <!-- Achievements Container -->
+    <div class="panel achievements-container">
+        <!-- Achievement Grid (Left) -->
+        <div class="achievement-section">
+            <h2>Achievements</h2>
+            <div class="achievement-grid">
+                <img src="/trophy.jpg" class="achieve-badge" 
+                     data-title="WebDev Corse" 
+                     data-desc="Completed basic webdev corse on corsera which includes full html with css and basics of javascript.">
+                
+                <img src="/trophy.jpg" class="achieve-badge" 
+                     data-title="Codewave Hackathon" 
+                     data-desc="Organized a district level Hackathon.">
+                
+                <img src="/trophy.jpg" class="achieve-badge" 
+                     data-title="Design Expert" 
+                     data-desc="Took expert sessions of designing in college.">
+                
+                <img src="/trophy.jpg" class="achieve-badge" 
+                     data-title="Design Leader" 
+                     data-desc="Successfully completed 2 years of leadership in designing team under a club.">
+                
+                <img src="/trophy.jpg" class="achieve-badge" 
+                     data-title="Open Source Contributor" 
+                     data-desc="Contributed to 10+ freelancing projects.">
+                
+                <img src="/trophy.jpg" class="achieve-badge" 
+                     data-title="CodeTeam Lead" 
+                     data-desc="Led a team of 4 developers, mentored junior developers, and improved team productivity by 35%.">
+            </div>
+        </div>
+
+        <!-- Achievement Details (Right) -->
+        <div class="achievement-details">
+            <h2 id="achieve-title">Hover over a badge</h2>
+            <p id="achieve-desc">Details will appear here.</p>
+            <div class="achievement-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Total Achievements:</span>
+                    <span class="stat-value">6</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Completion Rate:</span>
+                    <span class="stat-value">100%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

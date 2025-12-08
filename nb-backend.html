@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NearBy BRTS — Backend Overview</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    /* Background Video */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -5;
+    }
+
+    /* Colors */
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --muted: #94a3b8;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.03);
+    }
+
+    /* Global */
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      background: transparent;
+    }
+
+    .wrap {
+      background:linear-gradient(180deg, #000000 0%, #000000 100%);
+      max-width: 1450px;
+      margin: 36px auto;
+      padding: 28px;
+      position: relative;
+      border: 2px solid #ffd700;
+      border-radius: 10px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex; 
+      flex-direction: column; 
+    }
+
+    .brand h1 {
+      font-family: 'Space Grotesk'; 
+      margin: 0; 
+      font-size: 22px; 
+      color: #ffd700;
+    }
+
+    .brand p { 
+      margin: 0; 
+      color: var(--muted); 
+      font-size: 13px; 
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 20px;
+      box-shadow: 0 6px 20px rgba(12,14,28,0.6);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 22px;
+    }
+
+    @media(max-width:980px) {
+      main { grid-template-columns: 1fr; }
+      .right { order: 2; }
+    }
+
+    /* Cards */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 30px rgba(93,93,93,0.6);
+      border: 1px solid rgb(255 255 255);
+    }
+
+    .stack {
+      display: flex; 
+      gap: 10px; 
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      background: #ffd700;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+      color: #000;
+      font-size: 13px;
+    }
+
+    .section {
+      margin-top: 14px; 
+      color: #ffd700;
+    }
+
+    .section h3 { 
+      margin: 0 0 10px 0; 
+      font-size: 16px; 
+    }
+
+    .db-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border-radius: 10px;
+    }
+
+    .erd-svg {
+      width: 100%;
+      height: 320px;
+      object-fit: contain;
+    }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px; text-align: left; font-size: 13px; }
+    thead th {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+    }
+    tbody tr {
+      border-top: 1px dashed rgba(255,255,255,0.03);
+    }
+
+    .method {
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: var(--glass);
+      display: inline-block;
+    }
+
+    /* Right Column */
+    .right .card { 
+      position: relative; 
+      top: 28px;
+      color: #ffd700;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      background: rgb(34, 34, 36);
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat h4 { margin: 0; font-size: 20px; }
+    .stat p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .shot {
+      height: 100px;
+      border-radius: 8px;
+      background: linear-gradient(180deg,#071426,#061025);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+
+    .features ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .features li {
+      background: linear-gradient(90deg, rgba(255,255,255,0.015), transparent);
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* Code Block */
+    pre {
+      background: #061427;
+      padding: 12px;
+      border-radius: 10px;
+      color: #bfe7ff;
+      overflow: auto;
+      font-size: 13px;
+    }
+
+    /* Glow */
+    .glow {
+      position: absolute;
+      right: -80px;
+      top: -60px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(124,58,237,0.14), transparent);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    @media(max-width:640px) {
+      .logo { width: 56px; height: 56px; font-size: 18px; }
+    }
+
+    /* fullscreen img */
+
+    .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.659);
+        backdrop-filter: blur(5px);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .lightbox-img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.233);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 25px;
+        right: 40px;
+        font-size: 40px;
+        color: #ffd700;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 10000;
+    }
+
+    .adventure-card {
+        cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Video -->
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="/assets/background-video.mp4" type="video/mp4">
+  </video>
+
+  <div class="mini-nav" style="margin: 20px 40px;">
+    <a href="./archer.html">
+        <button class="btn-primary mini-nav-btn" id="nav-back" title="Go Back">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </a>
+  </div>
+
+  <div class="wrap">
+    <div class="glow"></div>
+
+    <!-- Header -->
+    <header>
+      <div class="logo">NB</div>
+      <div class="brand">
+        <h1>NearBy BRTS — Backend Overview</h1>
+        <p>Backend design & DB schema + nearby places app</p>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- Left Section -->
+      <section>
+        <div class="card">
+
+          <div class="section">
+            <h2 style="margin:0">Technologies Used</h2>
+            <div class="stack" style="margin-top:12px">
+              <span class="chip">PHP</span>
+              <span class="chip">MySQL</span>
+              <span class="chip">MVC</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>Architecture & ERD</h3>
+            <div class="db-diagram">
+              <img class="erd-svg" src="/Backend/nbdb.png" alt="NearBy BRTS ERD">
+            </div>
+          </div>
+
+          <!-- DATABASE TABLES -->
+          <div class="section">
+            <h3>Database Schema (tables & key columns)</h3>
+            <p style="color:var(--muted);margin:6px 0 12px">Schema follows the ERD — core tables for transit & nearby places.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+              <div><pre>bus
+- bus_no
+- code
+- no</pre></div>
+
+              <div><pre>routes
+- bus_no
+- from
+- to</pre></div>
+
+              <div><pre>stations
+- no
+- s_name
+- created_at</pre></div>
+
+              <div><pre>near
+- n_id
+- no (station)
+- p_no (place)</pre></div>
+
+              <div><pre>places
+- p_no
+- school
+- bank
+- atm
+- hospital</pre></div>
+
+              <div><pre>users
+- id
+- name
+- password
+- email
+- is_ban</pre></div>
+
+              <div><pre>malls
+- id
+- name
+- address
+- images
+- rating</pre></div>
+
+              <div><pre>playzones
+- id
+- name
+- address
+- images
+- rating</pre></div>
+
+              <div><pre>waterparks
+- id
+- name
+- address
+- images
+- rating</pre></div>
+
+              <div><pre>gallery
+- id
+- image_path
+- title</pre></div>
+
+              <div><pre>enquiries
+- id
+- fname
+- lname
+- mail
+- message</pre></div>
+
+              <div><pre>feedback
+- id
+- fname
+- lname
+- mail
+- message</pre></div>
+            </div>
+          </div>
+
+          <!-- Backend Features -->
+          <div class="section">
+            <h3>Backend Features</h3>
+            <div class="features" style="margin-top:8px">
+              <ul>
+                <li>CRUD for Buses, Routes, Stations, Places, Malls, Playzones, Waterparks</li>
+                <li>Search & filter</li>
+                <li>Near-station mapping with `near` table</li>
+                <li>Realtime notifications (Firebase/OneSignal)</li>
+                <li>User management + soft-ban</li>
+                <li>Server-side validation + logs</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>Security</h3>
+            <p style="color:var(--muted);margin:6px 0">
+              JWT auth, PDO, CSRF, sanitization, hashed passwords & RBAC.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Right Section -->
+      <aside class="right">
+
+        <div class="card">
+          <h3>Quick Stats</h3>
+
+          <div class="stat-grid" style="margin-top:10px">
+            <div class="stat"><h4>15+</h4><p>Buses</p></div>
+            <div class="stat"><h4>120+</h4><p>Stations</p></div>
+            <div class="stat"><h4>350+</h4><p>Places</p></div>
+            <div class="stat"><h4>5+</h4><p>Users</p></div>
+          </div>
+
+          <div class="section">
+            <h3>Admin Panel</h3>
+            <p style="color:var(--muted)">CRUD, search & management.</p>
+
+            <div class="screenshot-grid">
+              <div class="shot">Bus Table</div>
+              <div class="shot">Routes</div>
+              <div class="shot">Stations</div>
+              <div class="shot">Places</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>Security Highlights</h3>
+            <ul style="color:var(--muted);font-size:13px;padding-left:18px">
+              <li>Prepared statements</li>
+              <li>CSRF tokens</li>
+              <li>Role-based permissions</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <h3>Error Logs & Monitoring</h3>
+          <pre>[2025-11-16] ERROR: DB connection timeout
+[2025-11-16] WARN: Invalid login attempt
+[2025-11-16] INFO: New enquiry (id=84)</pre>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- Fullscreen Image Viewer -->
+  <div id="lightbox" class="lightbox">
+      <span class="close-btn">&times;</span>
+      <img id="lightbox-img" class="lightbox-img">
+  </div>
+
+   <script>
+        // Get elements
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".close-btn");
+
+    // All adventure cards
+    const cards = document.querySelectorAll(".db-diagram");
+
+    // When card clicked
+    cards.forEach(card => {
+    card.addEventListener("click", () => {
+        const imgElement = card.querySelector("img"); // get inside image
+        if (imgElement) {
+            lightboxImg.src = imgElement.src;
+            lightbox.style.display = "flex";
+            }
+        });
+    });
+
+
+    // Close button
+    closeBtn.addEventListener("click", () => {
+        lightbox.style.display = "none";
+    });
+
+    // Close when clicking outside image
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+            lightbox.style.display = "none";
+        }
+    });
+
+    </script>
+
+</body>
+
+</html>

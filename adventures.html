@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Adventures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Fullscreen Lightbox */
+    .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.659);
+        backdrop-filter: blur(5px);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .lightbox-img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.233);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 25px;
+        right: 40px;
+        font-size: 40px;
+        color: #ffd700;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 10000;
+    }
+
+    .adventure-card {
+        cursor: pointer;
+    }
+
+    /* Adventure Card */
+    .adventure-web-card {
+        position: relative;
+        height: 300px;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--accent-gold);
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        transition: all var(--transition-speed) ease;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .adventure-web-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .adventure-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        transition: all var(--transition-speed) ease;
+    }
+
+    .adventure-web-card:hover .adventure-overlay {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.95));
+    }
+
+    .adventure-overlay h3 {
+        font-size: 1.3rem;
+        color: var(--accent-gold);
+        margin-bottom: 5px;
+    }
+
+    .adventure-overlay p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+
+    </style>
+</head>
+<body>
+    <!-- Background Video and Overlay -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Global Mini Nav -->
+    <div class="mini-nav">
+    <a href="./index.html">
+        <button class="btn-primary mini-nav-btn" id="nav-back" title="Go Back">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </a>
+    </div>
+
+    <!-- Hidden Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/background-music.wav" type="audio/wav">
+    </audio>
+
+    <!-- Adventures Container -->
+    <div class="panel adventure-container">
+        <h2>Adventures</h2>
+        <p class="adventure-subtitle">Explore my gallery of projects and experiences</p>
+
+        <!-- Adventure Grid -->
+        <div class="adventure-grid">
+            <!-- Adventure Card 1 -->
+            <a href="#" class="adventure-card" style="background-image: url('/Adventure/Violin\ Note.jpg');">
+                <div class="adventure-overlay">
+                    <h3>Cool UI</h3>
+                    <p>Modern and cool UI for Violin</p>
+                </div>
+            </a>
+
+            <!-- Adventure Card 2 -->
+            <a href="https://kuldeep-makwana.github.io/Rose-Day/" class="adventure-web-card" style="background-image: url('/Adventure/roseday.png');">
+                <div class="adventure-overlay">
+                    <h3>Rose Day Web</h3>
+                    <p>Rose day celebration web</p>
+                </div>
+            </a>
+
+            <!-- Adventure Card 3 -->
+            <a href="https://kuldeep-makwana.github.io/Valentine-Day/" class="adventure-web-card" style="background-image: url('/Adventure/valentine.png');">
+                <div class="adventure-overlay">
+                    <h3>Velentine Day Web</h3>
+                    <p>Velentine Day praposal web</p>
+                </div>
+            </a>
+
+            <!-- Adventure Card 4 -->
+            <a href="#" class="adventure-card" style="background-image: url('/Adventure/Watch.jpg');">
+                <div class="adventure-overlay">
+                    <h3>Watch Page</h3>
+                    <p>Wonderfull UI for product.</p>
+                </div>
+            </a>
+
+            <!-- Adventure Card 5 -->
+            <!-- <a href="#" class="adventure-card" style="background-image: url('https://via.placeholder.com/400x300?text=Cloud+Infrastructure');">
+                <div class="adventure-overlay">
+                    <h3>Cloud Infrastructure</h3>
+                    <p>AWS, Azure, and GCP deployments</p>
+                </div>
+            </a> -->
+
+            <!-- Adventure Card 6 -->
+            <!-- <a href="#" class="adventure-card" style="background-image: url('https://via.placeholder.com/400x300?text=DevOps+Solutions');">
+                <div class="adventure-overlay">
+                    <h3>DevOps Solutions</h3>
+                    <p>CI/CD pipelines and automation</p>
+                </div>
+            </a> -->
+        </div>
+    </div>
+
+    <!-- Fullscreen Image Viewer -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-img" class="lightbox-img">
+    </div>
+
+
+    <script src="scripts/main.js"></script>
+
+    <script>
+        // Get elements
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".close-btn");
+
+    // All adventure cards
+    const cards = document.querySelectorAll(".adventure-card");
+
+    // When card clicked
+    cards.forEach(card => {
+        card.addEventListener("click", (e) => {
+            e.preventDefault(); // stop page redirect
+            const bgImage = card.style.backgroundImage;
+            const imageUrl = bgImage.slice(5, -2); // remove url("...")
+            
+            lightboxImg.src = imageUrl;
+            lightbox.style.display = "flex";
+        });
+    });
+
+    // Close button
+    closeBtn.addEventListener("click", () => {
+        lightbox.style.display = "none";
+    });
+
+    // Close when clicking outside image
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+            lightbox.style.display = "none";
+        }
+    });
+
+    </script>
+</body>
+</html>

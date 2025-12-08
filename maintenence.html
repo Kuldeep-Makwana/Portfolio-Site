@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Futuristic maintenance page with animation, glowing UI and countdown." />
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:#111828;
+      --glass:rgba(255,255,255,0.05);
+      --accent:#8b5cf6;
+      --accent2:#06b6d4;
+      --text:#e7ecf6;
+      --muted:#94a3b8;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter, sans-serif}
+    body{
+      background:radial-gradient(900px at 15% 20%, rgba(139,92,246,0.12), transparent),
+                 radial-gradient(800px at 80% 80%, rgba(6,182,212,0.10), transparent),
+                 var(--bg);
+      height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--text);
+    }
+
+    /* floating glow spheres */
+    .blob{position:absolute;filter:blur(70px);opacity:.4;pointer-events:none}
+    .b1{width:380px;height:380px;background:var(--accent);left:-140px;top:-120px;border-radius:50%;animation:float 9s ease-in-out infinite}
+    .b2{width:300px;height:300px;background:var(--accent2);right:-120px;bottom:-120px;border-radius:50%;animation:float 11s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-30px) scale(1.05)}}
+
+    /* MAIN CARD */
+    .card{
+      width:90%;max-width:500px;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(18px) saturate(180%);
+      padding:40px;border-radius:20px;
+      text-align:center;position:relative;
+      box-shadow:0 0 40px rgba(0,0,0,0.5);
+      animation:enter 1s ease both;
+    }
+    @keyframes enter{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
+
+    h1{
+      font-size:28px;font-weight:700;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;color:transparent;
+      margin-bottom:15px;
+    }
+
+    .lead{color:var(--muted);margin-bottom:25px;font-size:15px;line-height:1.5}
+
+    /* COUNTDOWN */
+    .countdown{display:flex;justify-content:center;gap:14px;margin-bottom:25px}
+    .count-item{
+      background:rgba(255,255,255,0.05);
+      padding:14px 18px;border-radius:14px;
+      min-width:70px;
+    }
+    .num{font-size:22px;font-weight:700}
+    .lbl{font-size:11px;color:var(--muted);margin-top:4px}
+
+    /* FUTURISTIC BAR */
+    .loader{
+      height:5px;width:100%;border-radius:999px;
+      background:rgba(255,255,255,0.07);
+      overflow:hidden;position:relative;margin:18px 0;
+    }
+    .loader span{
+      position:absolute;left:-30%;top:0;height:100%;width:30%;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      animation:slide 2.2s linear infinite;
+    }
+    @keyframes slide{100%{left:100%}}
+
+    /* BOTTOM TEXT */
+    footer{margin-top:10px;font-size:13px;color:var(--muted)}
+
+  </style>
+</head>
+<body>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+
+<div class="card">
+  <h1>Upgrading Portfolio</h1>
+  <p class="lead">I'm crafting something cleaner, faster and more futuristic. This page will be back online very soon ✨</p>
+
+  <div class="countdown">
+    <div class="count-item"><div class="num" id="days">00</div><div class="lbl">Days</div></div>
+    <div class="count-item"><div class="num" id="hours">00</div><div class="lbl">Hours</div></div>
+    <div class="count-item"><div class="num" id="minutes">00</div><div class="lbl">Min</div></div>
+    <div class="count-item"><div class="num" id="seconds">00</div><div class="lbl">Sec</div></div>
+  </div>
+
+  <div class="loader"><span></span></div>
+
+  <footer>Made with ❤️ by Kuldeep — Rebuilding with creativity</footer>
+</div>
+
+<script>
+  const target = new Date('2026-01-01T10:00:00Z').getTime();
+  const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds');
+
+  function tick(){
+    const now=Date.now();let diff=Math.max(0,target-now);
+    const days=Math.floor(diff/86400000); diff-=days*86400000;
+    const hrs=Math.floor(diff/3600000); diff-=hrs*3600000;
+    const mins=Math.floor(diff/60000); diff-=mins*60000;
+    const secs=Math.floor(diff/1000);
+    d.textContent=days;
+    h.textContent=String(hrs).padStart(2,'0');
+    m.textContent=String(mins).padStart(2,'0');
+    s.textContent=String(secs).padStart(2,'0');
+  }
+  setInterval(tick,1000); tick();
+
+  /* fun secret */
+  let key='';
+  window.addEventListener('keydown',e=>{
+    key+=e.key.toLowerCase();
+    if(key.endsWith('kuldeep')){alert('🔥 Secret Unlocked: Welcome Kuldeep!');key='';}
+    if(key.length>20) key=key.slice(-10);
+  })
+</script>
+
+</body>
+</html>

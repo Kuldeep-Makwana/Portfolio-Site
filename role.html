@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Choose Your Role</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Background Video and Overlay -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Global Mini Nav -->
+    <div class="mini-nav" style="margin: 20px 40px;">
+    <a href="./index.html">
+        <button class="btn-primary mini-nav-btn" id="nav-back" title="Go Back">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </a>
+    </div>
+
+    <!-- Hidden Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/background-music.wav" type="audio/wav">
+    </audio>
+
+    <!-- Role Selection Panel -->
+    <div class="page-center-wrap">
+      <div class="panel role-panel">
+        <h2>Choose Your Role</h2>
+        <p class="role-subtitle">Select a role to begin your adventure</p>
+
+        <!-- Role Cards Container -->
+        <div class="role-cards-container">
+            <!-- Fighter Card -->
+            <div class="role-card" data-role="fighter">
+                <div class="role-icon">
+                    <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                </div>
+                <h3>Fighter</h3>
+                <p class="role-description">Frontend Developer</p>
+                <p class="role-details">Master of UI/UX and client-side technologies</p>
+            </div>
+
+            <!-- Mage Card -->
+            <div class="role-card" data-role="mage">
+                <div class="role-icon">
+                    <i class="fas fa-hat-wizard" aria-hidden="true"></i>
+                </div>
+                <h3>Mage</h3>
+                <p class="role-description">Full Stack Developer</p>
+                <p class="role-details">Wielder of both frontend and backend magic</p>
+            </div>
+
+            <!-- Archer Card -->
+            <div class="role-card" data-role="archer">
+                <div class="role-icon">
+                    <i class="fas fa-bullseye" aria-hidden="true"></i>
+                </div>
+                <h3>Archer</h3>
+                <p class="role-description">Backend Developer</p>
+                <p class="role-details">Precision and power in server-side architecture</p>
+            </div>
+        </div>
+
+        <!-- Start Button -->
+        <button id="start-btn" class="btn-primary" disabled>
+            <i class="fas fa-play" aria-hidden="true"></i> Start Adventure
+        </button>
+      </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

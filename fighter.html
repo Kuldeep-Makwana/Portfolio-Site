@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Fighter Role</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .fighter-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .fighter-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .fighter-header h1 {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .fighter-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: var(--dark-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+            border-color: var(--accent-gold-glow);
+        }
+
+        .project-media {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .project-media img,
+        .project-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .project-card:hover .project-media img,
+        .project-card:hover .project-media video {
+            transform: scale(1.05);
+        }
+
+        .project-media video {
+            background: #000;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay i {
+            color: var(--accent-gold);
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .project-overlay i:hover {
+            transform: scale(1.2);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent-gold);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .fighter-stats {
+            background: var(--dark-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin: 40px 0px;
+            text-align: center;
+        }
+
+        .fighter-stats h2 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Modal for video and image viewing */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal video {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            border-radius: var(--border-radius);
+        }
+
+        .modal-details {
+            background: var(--dark-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+
+        .modal-details h3 {
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .modal-details p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .modal-tag {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent-gold);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--accent-gold);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .fighter-header h1 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-media {
+                height: 200px;
+            }
+
+            .fighter-stats {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video and Overlay -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Hidden Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/background-music.wav" type="audio/wav">
+    </audio>
+
+     <!-- Global Mini Nav -->
+        <div class="mini-nav">
+        <a href="./role.html">
+            <button class="btn-primary mini-nav-btn" id="nav-back" title="Go Back">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </a>
+        </div>
+        
+    <!-- Fighter Content -->
+    <div class="fighter-container">
+
+        <div class="fighter-header">
+            <h1><i class="fas fa-shield-halved"></i> Fighter - Frontend Designer</h1>
+            <p>Master of UI/UX and client-side technologies. Crafting pixel-perfect interfaces that bring designs to life with precision and creativity.</p>
+        </div>
+
+        <!-- Fighter Stats Section -->
+        <div class="fighter-stats">
+            <h2>Frontend Mastery Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">UI/UX Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">User Satisfaction Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Design Systems Created</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Responsive Design Focus</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Logitech -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Logitech.jpg" alt="Logitech Product Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Logitech Product Hub</h3>
+                    <p class="project-description">A product showcase interface for Logitech's hardware ecosystem. The design highlights product features, specifications, and user benefits through clean layouts and interactive elements that help customers make informed purchasing decisions.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Product Showcase</span>
+                        <span class="project-tag">Hardware</span>
+                        <span class="project-tag">B2C Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nike 2.0 -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Nike 2.0.jpg" alt="Nike Rebrand Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Nike 2.0 Experience</h3>
+                    <p class="project-description">A reimagined Nike brand experience that pushes the boundaries of sports retail. Featuring immersive product stories, athlete testimonials, and interactive shopping features that create an emotional connection between the brand and its customers.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Brand Experience</span>
+                        <span class="project-tag">Sports</span>
+                        <span class="project-tag">Immersive Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nike Air Max -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Nike Air Max.jpg" alt="Nike Air Max Product Page">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Nike Air Max Collection</h3>
+                    <p class="project-description">A dedicated product page for the iconic Air Max line, showcasing sneaker heritage and innovation. The design combines product photography, technical specifications, and storytelling elements that celebrate the cultural impact of this legendary footwear.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Product Page</span>
+                        <span class="project-tag">Heritage</span>
+                        <span class="project-tag">Storytelling</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Donut Prototype -->
+            <div class="project-card">
+                <div class="project-media">
+                    <video muted loop>
+                        <source src="UIUX Tasks/Donut Prototype.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="project-overlay">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Donut Shop Prototype</h3>
+                    <p class="project-description">An interactive prototype for a donut ordering app, demonstrating smooth micro-interactions and delightful user experience. The animation showcases the ordering process from selection to payment, with charming details that make the mundane task of ordering food feel special.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Prototype</span>
+                        <span class="project-tag">Micro-interactions</span>
+                        <span class="project-tag">Food App</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beautique -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Beautique.jpg" alt="Beautique App Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Beautique E-commerce</h3>
+                    <p class="project-description">An elegant mobile app design for a beauty products marketplace. The interface combines sophisticated aesthetics with user-friendly navigation, featuring product galleries, personalized recommendations, and seamless checkout flow that enhances the shopping experience.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Mobile UI</span>
+                        <span class="project-tag">E-commerce</span>
+                        <span class="project-tag">UX Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Console -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Console.jpg" alt="Gaming Console Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Gaming Console UI</h3>
+                    <p class="project-description">A futuristic gaming console interface design that pushes the boundaries of interactive entertainment. This design features dynamic animations, immersive visual effects, and intuitive gesture-based controls that create an engaging gaming ecosystem.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Gaming UI</span>
+                        <span class="project-tag">Interactive Design</span>
+                        <span class="project-tag">Animation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Elan Beauty -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Elan Beauty.jpg" alt="Elan Beauty Salon Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Elan Beauty Salon</h3>
+                    <p class="project-description">A luxurious booking interface for a high-end beauty salon. The design captures elegance and sophistication with carefully crafted visual elements, appointment scheduling, service selection, and stylist profiles that reflect the premium nature of the brand.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Booking System</span>
+                        <span class="project-tag">Luxury Design</span>
+                        <span class="project-tag">Service App</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fashion -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Fashion.png" alt="Fashion E-commerce Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Fashion Marketplace</h3>
+                    <p class="project-description">A vibrant fashion e-commerce platform design that celebrates style and individuality. Featuring dynamic product showcases, trend-based navigation, and personalized styling recommendations that make fashion discovery an exciting and personalized journey.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Fashion</span>
+                        <span class="project-tag">E-commerce</span>
+                        <span class="project-tag">Personalization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glass Icons -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Glass Icons.png" alt="Glass Morphism Icon Set">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Glass Morphism Icons</h3>
+                    <p class="project-description">A collection of glassmorphism-style icons that blend transparency and depth. These icons demonstrate advanced CSS techniques and design trends, creating a modern, sophisticated visual language that adds elegance to any digital interface.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Icon Design</span>
+                        <span class="project-tag">Glassmorphism</span>
+                        <span class="project-tag">CSS Effects</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Idea Class -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Idea Class.jpg" alt="Educational Platform Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Idea Class Learning</h3>
+                    <p class="project-description">An innovative educational platform design focused on collaborative learning. The interface features interactive whiteboards, real-time collaboration tools, and gamified learning elements that make education engaging and effective for modern learners.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Education</span>
+                        <span class="project-tag">Collaboration</span>
+                        <span class="project-tag">Gamification</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layers -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Layers.jpg" alt="Design System Layers">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Design System Layers</h3>
+                    <p class="project-description">A comprehensive design system showcasing layered component architecture. This visual guide demonstrates how design elements stack and interact, providing a foundation for scalable and consistent user interface development across multiple platforms.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Design System</span>
+                        <span class="project-tag">Component Architecture</span>
+                        <span class="project-tag">Scalability</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pizza Hut Prototype -->
+            <div class="project-card">
+                <div class="project-media">
+                    <video muted loop>
+                        <source src="UIUX Tasks/Pizza hut prototype.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="project-overlay">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Pizza Hut Ordering</h3>
+                    <p class="project-description">A delightful food ordering prototype that makes pizza customization fun and intuitive. The interactive flow guides users through crust selection, topping choices, and special requests with engaging animations that reflect the joy of creating the perfect pizza.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Food Ordering</span>
+                        <span class="project-tag">Customization</span>
+                        <span class="project-tag">Interactive Prototype</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- School -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/School.png" alt="Educational Management System">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">School Management Portal</h3>
+                    <p class="project-description">A comprehensive school management system interface designed for administrators, teachers, and students. The dashboard provides quick access to grades, attendance, schedules, and communication tools, streamlining educational administration.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Education Tech</span>
+                        <span class="project-tag">Management System</span>
+                        <span class="project-tag">Dashboard</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Together -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Team together.jpg" alt="Team Collaboration Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Team Collaboration Hub</h3>
+                    <p class="project-description">A collaborative workspace design that brings teams together virtually. Features include project boards, real-time messaging, file sharing, and progress tracking that foster productivity and team cohesion in remote work environments.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Collaboration</span>
+                        <span class="project-tag">Remote Work</span>
+                        <span class="project-tag">Productivity</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- AI Projects -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/AI Projects.jpg" alt="AI Projects Interface Design">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">AI Projects Dashboard</h3>
+                    <p class="project-description">A sleek dashboard design for managing AI projects, featuring intuitive navigation and data visualization. This interface showcases modern UI principles with clean typography and strategic use of whitespace, making complex AI workflows accessible and engaging.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">UI Design</span>
+                        <span class="project-tag">Dashboard</span>
+                        <span class="project-tag">Data Visualization</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Work Smart -->
+            <div class="project-card">
+                <div class="project-media">
+                    <img src="UIUX Tasks/Work Smart.jpg" alt="Productivity App Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Work Smart Productivity</h3>
+                    <p class="project-description">A productivity application that helps users optimize their workflow and achieve goals. The interface combines task management, time tracking, and habit building features with clean design and intuitive interactions.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Productivity</span>
+                        <span class="project-tag">Task Management</span>
+                        <span class="project-tag">Workflow</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Media Viewing -->
+    <div id="mediaModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" style="display: none;" alt="">
+            <video id="modalVideo" controls style="display: none;">
+                Your browser does not support the video tag.
+            </video>
+            <div id="modalDetails" class="modal-details" style="display: none;">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+                <div id="modalTags" class="modal-tags"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // Media modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('mediaModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalDetails = document.getElementById('modalDetails');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalTags = document.getElementById('modalTags');
+            const closeModal = document.querySelector('.close-modal');
+
+            // Add click listeners to all project overlays
+            document.querySelectorAll('.project-overlay i').forEach(icon => {
+                icon.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const projectCard = this.closest('.project-card');
+                    const mediaElement = projectCard.querySelector('img, video');
+                    const title = projectCard.querySelector('.project-title').textContent;
+                    const description = projectCard.querySelector('.project-description').textContent;
+                    const tags = Array.from(projectCard.querySelectorAll('.project-tag')).map(tag => tag.textContent);
+
+                    // Reset modal elements
+                    modalImage.style.display = 'none';
+                    modalVideo.style.display = 'none';
+                    modalDetails.style.display = 'none';
+
+                    if (mediaElement.tagName === 'IMG') {
+                        // Handle image
+                        modalImage.src = mediaElement.src;
+                        modalImage.alt = mediaElement.alt;
+                        modalImage.style.display = 'block';
+                    } else if (mediaElement.tagName === 'VIDEO') {
+                        // Handle video
+                        const videoSrc = mediaElement.querySelector('source').src;
+                        modalVideo.src = videoSrc;
+                        modalVideo.style.display = 'block';
+                        modalVideo.play();
+                    }
+
+                    // Set details
+                    modalTitle.textContent = title;
+                    modalDescription.textContent = description;
+                    modalTags.innerHTML = tags.map(tag => `<span class="modal-tag">${tag}</span>`).join('');
+                    modalDetails.style.display = 'block';
+
+                    // Show modal
+                    modal.style.display = 'flex';
+                });
+            });
+
+            // Close modal when clicking close button
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+                modalVideo.pause();
+                modalVideo.src = '';
+            });
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    modalVideo.pause();
+                    modalVideo.src = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

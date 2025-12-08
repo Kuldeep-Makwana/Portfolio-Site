@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Archer Role</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .archer-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .archer-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .archer-header h1 {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .archer-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: var(--dark-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+            border-color: var(--accent-gold-glow);
+        }
+
+        .project-media {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .project-media img,
+        .project-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .project-card:hover .project-media img,
+        .project-card:hover .project-media video {
+            transform: scale(1.05);
+        }
+
+        .project-media video {
+            background: #000;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay i {
+            color: var(--accent-gold);
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .project-overlay i:hover {
+            transform: scale(1.2);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent-gold);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .archer-stats {
+            background: var(--dark-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin: 40px 0px;
+            text-align: center;
+        }
+
+        .archer-stats h2 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Modal for video and image viewing */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal video {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            border-radius: var(--border-radius);
+        }
+
+        .modal-details {
+            background: var(--dark-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+
+        .modal-details h3 {
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .modal-details p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .modal-tag {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent-gold);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--accent-gold);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .archer-header h1 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-media {
+                height: 200px;
+            }
+
+            .archer-stats {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video and Overlay -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Hidden Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/background-music.wav" type="audio/wav">
+    </audio>
+
+    <!-- Global Mini Nav -->
+        <div class="mini-nav">
+            <a href="./role.html">
+                <button class="btn-primary mini-nav-btn" id="nav-back" title="Go Back">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </a>
+        </div>
+
+    <!-- archer Content -->
+    <div class="archer-container">
+
+        <div class="archer-header">
+            <h1><i class="fas fa-bullseye"></i> archer - Backend Developer</h1>
+            <p>Precision and power in server-side architecture.</p>
+        </div>
+
+        <!-- archer Stats Section -->
+        <!-- <div class="archer-stats">
+            <h2>Frontend Mastery Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">UI/UX Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">User Satisfaction Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Design Systems Created</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Responsive Design Focus</div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="projects-grid">
+            <!-- Logitech -->
+            <div class="project-card">
+                <div class="project-media">
+                    <a href="./nb-backend.html"><img src="quest images/NearBy BRTS/nb home.png" alt="nb home">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    </a>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">NearBy BRTS Admin</h3>
+                    <p class="project-description">The NearBy BRTS Admin Panel is a clean and efficient backend system used to manage stations, routes, and buses. It allows admins to add or update data, view route flow, control timings, and power the mobile/web app with accurate real-time information.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Php</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Java Script</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nike 2.0 -->
+            <!-- <div class="project-card">
+                <div class="project-media">
+                    <a href="./dh-backend.html"></a><img src="UIUX Tasks/Nike 2.0.jpg" alt="Nike Rebrand Interface">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Nike 2.0 Experience</h3>
+                    <p class="project-description">A reimagined Nike brand experience that pushes the boundaries of sports retail. Featuring immersive product stories, athlete testimonials, and interactive shopping features that create an emotional connection between the brand and its customers.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Php</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Laravel</span>
+                        <span class="project-tag">Java Script</span>
+                    </div>
+                </div>
+            </div> -->
+
+             <!-- Logitech -->
+            <div class="project-card">
+                <div class="project-media">
+                    <a href="./dh-backend.html"><img src="quest images/E - Commerce/Deal hut.png" alt="Deal Hut">
+                    <div class="project-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    </a>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Deal Hut Admin</h3>
+                    <p class="project-description">The DealHut Admin Panel lets admins manage products, categories, orders, customers, offers, and inventory in one place. It provides fast controls to update listings, track sales, and keep the ecommerce store running smoothly.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Php</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Laravel</span>
+                        <span class="project-tag">Java Script</span>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Modal for Media Viewing -->
+    <div id="mediaModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" style="display: none;" alt="">
+            <video id="modalVideo" controls style="display: none;">
+                Your browser does not support the video tag.
+            </video>
+            <div id="modalDetails" class="modal-details" style="display: none;">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+                <div id="modalTags" class="modal-tags"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
