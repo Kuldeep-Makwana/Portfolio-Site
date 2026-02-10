@@ -439,63 +439,106 @@
   }
 }
 
-/* =================================================
-   CRITICAL RESPONSIVE FIXES (ADD ONLY)
-   ================================================= */
+@media (max-width: 425px) {
 
-/* 1️⃣ Fix inline 3-column grid on mobile */
-@media (max-width: 768px) {
+  .wrap {
+    margin: 10px;
+    padding: 14px;
+  }
+
+  header {
+    gap: 12px;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .brand h1 {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .brand p {
+    font-size: 11px;
+  }
+
+  main {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .right {
+    order: 2;
+  }
+
+  .right .card {
+    top: 0;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
   div[style*="grid-template-columns:repeat(3,1fr)"] {
     grid-template-columns: 1fr !important;
   }
-}
 
-/* 2️⃣ Make tables & pre blocks mobile-safe */
-@media (max-width: 768px) {
+  .erd-svg {
+    max-height: 200px;
+    width: 100%;
+  }
+
+  .db-diagram {
+    padding: 12px;
+  }
+
+  pre {
+    font-size: 12px;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
   table {
     display: block;
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
+    font-size: 12px;
   }
 
-  pre {
-    max-width: 100%;
-    overflow-x: auto;
-  }
-}
-
-/* 3️⃣ Relax wrap spacing on small screens */
-@media (max-width: 640px) {
-  .wrap {
-    margin: 12px;
-    padding: 16px;
-  }
-}
-
-/* 4️⃣ Normalize main grid behavior */
-@media (max-width: 1024px) {
-  main {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* 5️⃣ Prevent images from pushing layout */
-@media (max-width: 768px) {
-  img {
-    max-width: 100%;
-    height: auto;
+  th, td {
+    padding: 8px;
   }
 
-  .erd-svg {
-    max-height: 240px;
+  .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
-}
 
-/* 6️⃣ Prevent accidental horizontal scroll */
-@media (max-width: 768px) {
-  body {
-    overflow-x: hidden;
+  .stat h4 {
+    font-size: 16px;
+  }
+
+  .stat p {
+    font-size: 11px;
+  }
+
+  .screenshot-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .shot {
+    height: 80px;
+    font-size: 11px;
+  }
+
+  .chip {
+    font-size: 11px;
+    padding: 6px 10px;
   }
 }
 
