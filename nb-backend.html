@@ -243,7 +243,6 @@
       position: absolute;
       right: -80px;
       top: -60px;
-      width: 260px;
       height: 260px;
       background: radial-gradient(circle, rgba(124,58,237,0.14), transparent);
       filter: blur(40px);
@@ -292,6 +291,153 @@
         cursor: pointer;
     }
 
+    /* ---------- Large Tablets / Small Laptops ---------- */
+@media (max-width: 1200px) {
+
+  .wrap {
+    max-width: 95%;
+    margin: 28px auto;
+  }
+
+  main {
+    grid-template-columns: 1fr 380px;
+  }
+
+  .erd-svg {
+    height: 300px;
+  }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 980px) {
+
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .right {
+    margin-top: 20px;
+  }
+
+  .right .card {
+    top: 0; /* overrides only on small screens */
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---------- Small Tablets / Large Phones ---------- */
+@media (max-width: 768px) {
+
+  .wrap {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  header {
+    gap: 14px;
+  }
+
+  .brand h1 {
+    font-size: 20px;
+  }
+
+  .brand p {
+    font-size: 12px;
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+    font-size: 18px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .erd-svg {
+    height: 260px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+}
+
+/* ---------- Mobile Phones ---------- */
+@media (max-width: 640px) {
+
+  .wrap {
+    padding: 16px;
+    margin: 16px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo {
+    width: 52px;
+    height: 52px;
+    font-size: 17px;
+  }
+
+  .brand h1 {
+    font-size: 18px;
+  }
+
+  .brand p {
+    font-size: 11px;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .screenshot-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shot {
+    height: 90px;
+    font-size: 11px;
+  }
+
+  pre {
+    font-size: 12px;
+  }
+}
+
+/* ---------- Very Small Phones ---------- */
+@media (max-width: 420px) {
+
+  .wrap {
+    padding: 14px;
+    margin: 12px;
+  }
+
+  .chip {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .stat h4 {
+    font-size: 18px;
+  }
+
+  .stat p {
+    font-size: 11px;
+  }
+}
   </style>
 </head>
 
