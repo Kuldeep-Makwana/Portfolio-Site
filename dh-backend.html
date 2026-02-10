@@ -291,33 +291,115 @@
         cursor: pointer;
     }
 
-    
-/* =================================================
-   ULTRA COMPACT MODE (<=375px)
-   ================================================= */
+  @media (max-width: 1024px) {
+
+  .wrap { padding: 24px; }
+
+  .brand h1 { font-size: 20px; }
+  .brand p { font-size: 12px; }
+
+  .logo { width: 60px; height: 60px; font-size: 19px; }
+
+  .card { padding: 16px; }
+
+  .section h3 { font-size: 15px; }
+
+  .chip { font-size: 12.5px; padding: 7px 11px; }
+
+  pre { font-size: 12.5px; }
+
+  .stat h4 { font-size: 18px; }
+  .stat p { font-size: 11.5px; }
+
+  .shot { height: 90px; }
+}
+
+@media (max-width: 768px) {
+
+  .wrap { margin: 24px; padding: 20px; }
+
+  header { gap: 14px; }
+
+  div[style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .brand h1 { font-size: 18px; }
+  .brand p { font-size: 11.5px; }
+
+  .logo { width: 56px; height: 56px; font-size: 18px; }
+
+  .card { padding: 14px; }
+
+  .section { margin-top: 12px; }
+
+  .section h3 { font-size: 14px; }
+
+  .section p { font-size: 11.5px; }
+
+  .chip { font-size: 11.5px; padding: 6px 10px; }
+
+  .erd-svg { height: 260px; }
+
+  pre { font-size: 11.5px; padding: 10px; }
+
+  th, td { font-size: 11.5px; padding: 8px; }
+
+  .stat h4 { font-size: 16px; }
+  .stat p { font-size: 11px; }
+
+  .shot { height: 80px; font-size: 11px; }
+}
+
+@media (max-width: 640px) {
+
+  .wrap { margin: 16px; padding: 16px; }
+
+  .brand h1 { font-size: 17px; }
+  .brand p { font-size: 11px; }
+
+  div[style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .logo { width: 52px; height: 52px; font-size: 17px; }
+
+  .section h3 { font-size: 13px; }
+
+  .section p { font-size: 11px; }
+
+  .chip { font-size: 11px; padding: 6px 9px; }
+
+  .erd-svg { height: 220px; }
+
+  pre { font-size: 11px; padding: 9px; }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .stat-grid { grid-template-columns: 1fr; }
+
+  .shot { height: 75px; font-size: 10.5px; }
+}
 
 @media (max-width: 376px) {
 
-  /* ===== GLOBAL TIGHTENING ===== */
-  html, body {
-  }
+  .wrap { margin: 8px; padding: 12px; }
 
-  .wrap {
-    margin: 8px;
-    padding: 12px;
-  }
+  header { gap: 10px; }
 
-  /* ===== HEADER ===== */
-  header {
-    gap: 10px;
-    margin-bottom: 14px;
+  div[style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
   }
 
   .logo {
     width: 44px;
     height: 44px;
     font-size: 15px;
-    border-radius: 10px;
   }
 
   .brand h1 {
@@ -325,48 +407,23 @@
     line-height: 1.2;
   }
 
-  .brand p {
-    font-size: 10.5px;
-  }
+  .brand p { font-size: 10.5px; }
 
-  /* ===== MAIN LAYOUT ===== */
-  main {
-    grid-template-columns: 1fr !important;
-    gap: 14px;
-  }
-
-  .right .card {
-    top: 0;
-  }
-
-  /* ===== CARDS ===== */
   .card {
     padding: 12px;
     border-radius: 12px;
   }
 
-  /* ===== SECTIONS ===== */
   .section {
     margin-top: 10px;
   }
 
-  .section h2 {
-    font-size: 14px;
-  }
+  .section h3 { font-size: 12.5px; }
 
-  .section h3 {
-    font-size: 13px;
-    margin-bottom: 6px;
-  }
-
-  .section p {
+  .section p,
+  .section li {
     font-size: 10.5px;
     line-height: 1.35;
-  }
-
-  /* ===== STACK / CHIPS ===== */
-  .stack {
-    gap: 6px;
   }
 
   .chip {
@@ -374,204 +431,137 @@
     padding: 5px 8px;
   }
 
-  /* ===== DATABASE SCHEMA (<pre>) ===== */
+  .erd-svg { height: 180px; }
+
   .section pre {
     font-size: 10px;
-    line-height: 1.35;
     padding: 7px;
-    border-radius: 8px;
     white-space: pre-wrap;
     word-break: break-word;
   }
 
-  /* ===== INLINE 3-COLUMN GRID FIX ===== */
-  div[style*="grid-template-columns:repeat(3,1fr)"] {
-    grid-template-columns: 1fr !important;
-    gap: 8px !important;
-  }
-
-  /* ===== ERD IMAGE ===== */
-  .erd-svg {
-    max-height: 180px;
-  }
-
-  .db-diagram {
-    padding: 10px;
-  }
-
-  /* ===== TABLES ===== */
-  table {
-    font-size: 10.5px;
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
   th, td {
-    padding: 6px;
     font-size: 10.5px;
+    padding: 6px;
   }
 
-  /* ===== STATS ===== */
-  .stat-grid {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
+  .stat h4 { font-size: 14px; }
+  .stat p { font-size: 10px; }
 
-  .stat {
-    padding: 10px;
-  }
-
-  .stat h4 {
-    font-size: 14px;
-  }
-
-  .stat p {
-    font-size: 10px;
-  }
-
-  /* ===== SCREENSHOTS ===== */
-  .screenshot-grid {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
+  .screenshot-grid { grid-template-columns: 1fr; }
 
   .shot {
     height: 70px;
     font-size: 10px;
   }
 
-  /* ===== FEATURES LIST ===== */
-  .features ul {
-    gap: 6px;
-  }
-
-  .features li {
-    font-size: 10.5px;
-    padding: 7px;
-    border-radius: 6px;
-  }
-
-  /* ===== CODE BLOCK ===== */
-  pre {
-    font-size: 10.5px;
-    padding: 8px;
-  }
-
-  /* ===== LIGHTBOX CLOSE BTN ===== */
   .close-btn {
-    font-size: 32px;
+    font-size: 30px;
     top: 16px;
     right: 20px;
   }
 }
-/* =======================
-   376px – 480px (Compact)
-   ======================= */
-@media (min-width: 376px) and (max-width: 480px) {
 
-  .wrap { padding: 16px; margin: 14px; }
+/* =========================================
+   425px RESPONSIVE FIX
+   ========================================= */
+@media (max-width: 425px) {
 
-  .logo { width: 48px; height: 48px; font-size: 16px; }
+  /* Wrapper tighter */
+  .wrap {
+    margin: 10px;
+    padding: 14px;
+  }
 
-  .brand h1 { font-size: 16px; }
-  .brand p { font-size: 11px; }
+  /* Header scaling */
+  header {
+    gap: 12px;
+  }
 
-  .card { padding: 14px; }
+  .logo {
+    width: 46px;
+    height: 46px;
+    font-size: 15.5px;
+  }
 
-  .section h2 { font-size: 15px; }
-  .section h3 { font-size: 14px; }
-  .section p { font-size: 11px; }
+  .brand h1 {
+    font-size: 15.5px;
+    line-height: 1.25;
+  }
 
-  .chip { font-size: 11px; padding: 6px 9px; }
+  .brand p {
+    font-size: 11px;
+  }
 
-  .section pre { font-size: 11px; padding: 8px; }
+  /* Cards */
+  .card {
+    padding: 13px;
+  }
 
-  .stat h4 { font-size: 15px; }
-  .stat p { font-size: 11px; }
+  /* Section content */
+  .section {
+    margin-top: 10px;
+  }
 
-  .shot { height: 80px; font-size: 11px; }
-}
+  .section h3 {
+    font-size: 13px;
+  }
 
+  .section p,
+  .section li {
+    font-size: 11px;
+    line-height: 1.4;
+  }
 
-/* =======================
-   481px – 640px (Relaxed Compact)
-   ======================= */
-@media (min-width: 481px) and (max-width: 640px) {
+  /* Chips */
+  .chip {
+    font-size: 10.5px;
+    padding: 6px 9px;
+  }
 
-  .wrap { padding: 18px; margin: 18px; }
+  /* ===============================
+     DB SCHEMA GRID (MAIN FIX)
+     =============================== */
+  div[style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
 
-  .logo { width: 52px; height: 52px; font-size: 17px; }
+  /* Pre blocks inside schema */
+  .section pre {
+    font-size: 10.5px;
+    padding: 7px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
 
-  .brand h1 { font-size: 18px; }
-  .brand p { font-size: 12px; }
+  /* ERD image */
+  .erd-svg {
+    height: 200px;
+  }
 
-  .card { padding: 16px; }
+  /* Stats */
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
 
-  .section h2 { font-size: 16px; }
-  .section h3 { font-size: 15px; }
-  .section p { font-size: 12px; }
+  .stat h4 {
+    font-size: 15px;
+  }
 
-  .chip { font-size: 12px; padding: 7px 10px; }
+  .stat p {
+    font-size: 10.5px;
+  }
 
-  .section pre { font-size: 12px; padding: 9px; }
+  /* Screenshots */
+  .screenshot-grid {
+    grid-template-columns: 1fr;
+  }
 
-  .stat h4 { font-size: 16px; }
-  .stat p { font-size: 12px; }
-
-  .shot { height: 90px; }
-}
-
-
-/* =======================
-   641px – 768px (Tablet Compact)
-   ======================= */
-@media (min-width: 641px) and (max-width: 768px) {
-
-  .wrap { padding: 20px; margin: 22px; }
-
-  .logo { width: 56px; height: 56px; font-size: 18px; }
-
-  .brand h1 { font-size: 19px; }
-  .brand p { font-size: 12.5px; }
-
-  .card { padding: 18px; }
-
-  .section h2 { font-size: 17px; }
-  .section h3 { font-size: 16px; }
-  .section p { font-size: 12.5px; }
-
-  .chip { font-size: 12.5px; }
-
-  .section pre { font-size: 12.5px; }
-
-  .stat h4 { font-size: 17px; }
-}
-
-
-/* =======================
-   769px – 1024px (Normal Tablet)
-   ======================= */
-@media (min-width: 769px) and (max-width: 1024px) {
-
-  .wrap { padding: 22px; margin: 28px; }
-
-  .logo { width: 60px; height: 60px; font-size: 19px; }
-
-  .brand h1 { font-size: 20px; }
-  .brand p { font-size: 13px; }
-
-  .card { padding: 18px; }
-
-  .section h2 { font-size: 18px; }
-  .section h3 { font-size: 16px; }
-  .section p { font-size: 13px; }
-
-  .chip { font-size: 13px; }
-
-  .section pre { font-size: 13px; }
-
-  .stat h4 { font-size: 18px; }
+  .shot {
+    height: 75px;
+    font-size: 10.5px;
+  }
 }
 
 
