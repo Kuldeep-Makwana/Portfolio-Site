@@ -307,7 +307,14 @@ button {
 
 .home-content {
     text-align: center;
+    width: 100%;
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 120px;         
+    padding-bottom: 80px; 
 }
 
 .home-content h2 {
@@ -329,183 +336,67 @@ button {
     padding: 15px 40px;
 }
 
-/* =================================================
-   SIZE-ONLY RESPONSIVE ADJUSTMENTS
-   (NO LAYOUT / POSITION CHANGES)
-   ================================================= */
+/* ============================================
+   HOME PAGE – FIXED & STABLE LAYOUT
+   ============================================ */
 
-/* -------- Tablets & small laptops -------- */
-@media (max-width: 1024px) {
-
-    .hud-container {
-        padding: 16px;
-    }
-
-    .hud-container h1 {
-        font-size: 1.5rem;
-    }
-
-    .hud-container p {
-        font-size: 0.85rem;
-    }
-
-    .profile-pic {
-        width: 70px;
-        height: 70px;
-    }
-
-    .mini-nav {
-        margin: 16px 24px;
-        padding: 8px 12px;
-    }
-
-    .mini-nav-btn {
-        padding: 8px 12px !important;
-        font-size: 0.85rem !important;
-    }
-
-    .nav-icon {
-        width: 46px;
-        height: 46px;
-        font-size: 1.1rem;
-    }
-
-    .home-content h2 {
-        font-size: 2.5rem;
-    }
-
-    .home-content p {
-        font-size: 1.1rem;
-    }
-
-    .home-content .btn-primary {
-        font-size: 1.15rem;
-        padding: 12px 32px;
-    }
+.home-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-/* -------- Mobile devices -------- */
+/* Text stays visually center */
+.home-content h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--accent-gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.home-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: auto;        /* pushes button down */
+    line-height: 1.6;
+}
+
+/* Start Adventure at bottom */
+.home-content .btn-primary {
+    font-size: 1.3rem;
+    padding: 15px 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .home-content h2 { font-size: 50px; }
+    .home-content p { font-size: 1.1rem; }
+    .home-content .btn-primary { font-size: 1.15rem; }
+}
+
 @media (max-width: 768px) {
-
-    .hud-container {
-        padding: 14px;
-    }
-
-    .name {
-        margin-left: 12px;
-    }
-
-    .hud-container h1 {
-        font-size: 1.3rem;
-    }
-
-    .hud-container p {
-        font-size: 0.8rem;
-    }
-
-    .profile-pic {
-        width: 60px;
-        height: 60px;
-    }
-
-    .music-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 1rem;
-    }
-
-    .mini-nav {
-        margin: 12px 16px;
-        padding: 6px 10px;
-    }
-
-    .mini-nav-btn {
-        padding: 6px 10px !important;
-        font-size: 0.8rem !important;
-        gap: 6px;
-    }
-
-    .nav-icon {
-        width: 42px;
-        height: 42px;
-        font-size: 1rem;
-    }
-
     .home-content {
-        max-width: 90%;
+        padding-top: 250px;
+        padding-bottom: 70px;
     }
 
-    .home-content h2 {
-        font-size: 2rem;
-        margin-bottom: 16px;
-    }
-
-    .home-content p {
-        font-size: 1rem;
-        margin-bottom: 24px;
-    }
-
+    .home-content h2 { font-size: 40px; }
+    .home-content p { font-size: 1rem; }
     .home-content .btn-primary {
         font-size: 1rem;
         padding: 12px 28px;
     }
-
-    .panel {
-        padding: 22px;
-    }
 }
 
-/* -------- Small phones -------- */
 @media (max-width: 480px) {
-
-    .hud-container {
-        padding: 12px;
-    }
-
-    .hud-container h1 {
-        font-size: 1.1rem;
-    }
-
-    .hud-container p {
-        font-size: 0.75rem;
-    }
-
-    .profile-pic {
-        width: 52px;
-        height: 52px;
-    }
-
-    .mini-nav {
-        margin: 10px;
-        padding: 6px 8px;
-    }
-
-    .mini-nav-btn {
-        font-size: 0.75rem !important;
-        padding: 6px 8px !important;
-    }
-
-    .nav-icon {
-        width: 38px;
-        height: 38px;
-        font-size: 0.95rem;
-    }
-
-    .home-content h2 {
-        font-size: 1.6rem;
-    }
-
-    .home-content p {
-        font-size: 0.95rem;
-    }
-
+    .home-content h2 { font-size: 1.6rem; }
+    .home-content p { font-size: 0.95rem; }
     .home-content .btn-primary {
         font-size: 0.95rem;
         padding: 10px 24px;
-    }
-
-    .panel {
-        padding: 18px;
     }
 }
 
@@ -1104,7 +995,7 @@ button {
     }
 
     .home-content h2 {
-        font-size: 2rem;
+        font-size: 47px;
     }
 
     .role-cards-container {
@@ -1137,9 +1028,14 @@ button {
     .panel {
         padding: 20px;
     }
+    
+    .home-content{
+        padding-top: 300px;
+        padding-bottom: 70px;
+    }
 
     .home-content h2 {
-        font-size: 1.5rem;
+        font-size: 33px;
     }
 
     .home-content p {
