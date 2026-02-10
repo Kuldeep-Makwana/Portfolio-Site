@@ -438,6 +438,67 @@
     font-size: 11px;
   }
 }
+
+/* =================================================
+   CRITICAL RESPONSIVE FIXES (ADD ONLY)
+   ================================================= */
+
+/* 1️⃣ Fix inline 3-column grid on mobile */
+@media (max-width: 768px) {
+  div[style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 2️⃣ Make tables & pre blocks mobile-safe */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+/* 3️⃣ Relax wrap spacing on small screens */
+@media (max-width: 640px) {
+  .wrap {
+    margin: 12px;
+    padding: 16px;
+  }
+}
+
+/* 4️⃣ Normalize main grid behavior */
+@media (max-width: 1024px) {
+  main {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 5️⃣ Prevent images from pushing layout */
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .erd-svg {
+    max-height: 240px;
+  }
+}
+
+/* 6️⃣ Prevent accidental horizontal scroll */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
   </style>
 </head>
 
